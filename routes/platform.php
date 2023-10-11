@@ -19,6 +19,7 @@ use App\Orchid\Screens\User\UserListScreen;
 use App\Orchid\Screens\User\UserProfileScreen;
 use Illuminate\Support\Facades\Route;
 use Tabuna\Breadcrumbs\Trail;
+use \App\Orchid\Screens\TaskScreen;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,4 +102,11 @@ Route::screen('/examples/grid', ExampleGridScreen::class)->name('platform.exampl
 Route::screen('/examples/charts', ExampleChartsScreen::class)->name('platform.example.charts');
 Route::screen('/examples/cards', ExampleCardsScreen::class)->name('platform.example.cards');
 
-//Route::screen('idea', Idea::class, 'platform.screens.idea');
+Route::screen('task', TaskScreen::class)
+    ->name('platform.task')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push('Tasks'));
+
+Route::delete('task/delete', [TaskScreen::class, 'delete'])
+    ->name('platform.task.delete');
